@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Snake Spiel starten",
+      "type": "shell",
+      "command": "Start-Process",
+      "args": ["index.html"],
+      "group": "build",
+      "isBackground": false,
+      "problemMatcher": []
+    }
+  ]
+}

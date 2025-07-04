@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake Spiel</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <header class="game-header">
+        <h1>🐍 Snake Spiel</h1>
+        <div class="score-container">
+          <div class="score">
+            <span>Punkte: </span>
+            <span id="score">0</span>
+          </div>
+          <div class="high-score">
+            <span>Beste: </span>
+            <span id="highScore">0</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Login Screen -->
+      <div class="login-screen" id="loginScreen">
+        <div class="login-content">
+          <h2>🎮 Multiplayer Snake</h2>
+          <div class="login-form">
+            <input
+              type="text"
+              id="playerName"
+              placeholder="Dein Name"
+              maxlength="20"
+              autocomplete="off"
+            />
+            <div class="game-mode-selection">
+              <h3>Spielmodus wählen:</h3>
+              <div class="mode-buttons">
+                <button class="mode-btn" data-mode="singleplayer">
+                  🐍 Einzelspieler
+                </button>
+                <button class="mode-btn" data-mode="multiplayer">
+                  👥 Multiplayer
+                </button>
+              </div>
+            </div>
+            <button id="joinGameButton" class="game-button" disabled>
+              Spiel beitreten
+            </button>
+          </div>
+          <div class="connection-status" id="connectionStatus">
+            <span class="status-dot"></span>
+            <span id="statusText">Verbindung wird hergestellt...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="leaderboard-section" id="leaderboardSection">
+        <h3>🏆 Bestenliste</h3>
+        <div class="leaderboard-tabs">
+          <button class="tab-btn active" data-tab="global">Global</button>
+          <button class="tab-btn" data-tab="session">Diese Runde</button>
+        </div>
+        <div class="leaderboard-content" id="leaderboardContent">
+          <div class="loading">Lade Bestenliste...</div>
+        </div>
+      </div>
+
+      <main class="game-main" id="gameMain" style="display: none">
+        <!-- Multiplayer Info -->
+        <div
+          class="multiplayer-info"
+          id="multiplayerInfo"
+          style="display: none"
+        >
+          <div class="players-online">
+            <span>👥 Spieler online: <span id="playersCount">0</span></span>
+          </div>
+          <div class="current-player">
+            <span>🎮 Du: <span id="currentPlayerName"></span></span>
+          </div>
+        </div>
+
+        <div class="game-board">
+          <canvas id="gameCanvas" width="400" height="400"></canvas>
+          <div class="game-overlay" id="gameOverlay">
+            <div class="overlay-content">
+              <h2 id="overlayTitle">Spiel starten</h2>
+              <p id="overlayText">Drücke SPACE um zu spielen</p>
+              <div class="controls-info">
+                <p>Steuerung: ← → ↑ ↓ oder WASD</p>
+              </div>
+              <div
+                class="multiplayer-waiting"
+                id="multiplayerWaiting"
+                style="display: none"
+              >
+                <p>Warte auf andere Spieler...</p>
+                <div class="waiting-players" id="waitingPlayers"></div>
+              </div>
+              <button id="startButton" class="game-button">
+                Spiel starten
+              </button>
+              <button
+                id="backToMenuButton"
+                class="game-button secondary"
+                style="display: none"
+              >
+                Zurück zum Menü
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other Players Display -->
+        <div class="other-players" id="otherPlayers"></div>
+      </main>
+
+      <footer class="game-footer">
+        <div class="controls">
+          <div class="control-row">
+            <button class="control-btn" data-direction="up">↑</button>
+          </div>
+          <div class="control-row">
+            <button class="control-btn" data-direction="left">←</button>
+            <button class="control-btn" data-direction="down">↓</button>
+            <button class="control-btn" data-direction="right">→</button>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
